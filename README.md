@@ -40,7 +40,7 @@ Afterwards add the API key to the `.env` file in the `client` directory.
 
 Afterwards add the API key to the `.env` file in the `client` directory.
 
-### Auh0 identity provider
+### Auth0 identity provider
 
 As wolkenkit uses authentication you have to configure an identity provider like [Auth0](https://auth0.com).
 
@@ -82,7 +82,6 @@ Starting the client:
 $ cd client
 $ npm start
 ```
-
 
 ## License
 
