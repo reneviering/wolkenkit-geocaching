@@ -51,7 +51,7 @@ To configure it, you have to follow these steps:
 - Click on the `Settings` tab and add `http://localhost:3000` to `Allowed Callback URLs`
 - Add the `Client ID` to the `.env` file in the `client` directory.
 - Scroll to the bottom of the page and click on `Show Advanced Settings`.
-- Click on the `Certificates` tab, copy the `Signing Certificate` and add it to `/server/keys/auth0.certificate.pem`.
+- Click on the `Certificates` tab, copy the `Signing Certificate` and add it to `/server/keys/auth0/certificate.pem`.
 - Add your identity provider URL to the `package.json` at the key `wolkenkit.environments.default.identiyProvider.name`. It has the structure `https://<identityProviderName>.eu.auth0.com/`
 
 ### Install node dependencies
