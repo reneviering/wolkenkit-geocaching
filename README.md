@@ -71,20 +71,13 @@ $ npm install
 
 ## Starting the application
 
-For the wolkenit backend:
+Starting the backend:
 
 ```shell
 $ wolkenkit start
 ```
 
-For the client:
-```shell
-$ cd client
-$ npm start
-```
-
-
-### Starting the client
+Starting the client:
 ```shell
 $ cd client
 $ npm start
