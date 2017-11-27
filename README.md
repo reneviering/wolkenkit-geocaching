@@ -2,7 +2,7 @@
 
 wolkenkit-geocaching is a simple [geocaching](https://en.wikipedia.org/wiki/Geocaching) application for hiding and finding geocaches in the world!
 
-It was developed as a playground with [wolkenkit](https://wolkenkit.io), [react](https://reactjs.org), [redux](https://redux.js.org) and ❤️.
+It was developed as a playground with [wolkenkit](https://www.wolkenkit.io), [react](https://reactjs.org), [redux](https://redux.js.org) and ❤️.
 
 ## What is wolkenkit?
 
