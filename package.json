@@ -1,0 +1,51 @@
+{
+  "name": "hide-and-find",
+  "version": "1.0.0",
+  "description": "Simple wolkenkit playground for the domain 'geocaching'",
+  "contributors": [
+    {
+      "name": "René Viering",
+      "email": "rene.viering@gmail.com"
+    }
+  ],
+  "wolkenkit": {
+    "application": "wolkenplayground",
+    "runtime": {
+      "version": "1.0.0"
+    },
+    "environments": {
+      "default": {
+        "api": {
+          "address": {
+            "host": "local.wolkenkit.io",
+            "port": 5000
+          },
+          "allowAccessFrom": "*"
+        },
+        "node": {
+          "environment": "development"
+        },
+        "identityProvider": {
+          "name": "https://<auth0>.eu.auth0.com/",
+          "certificate": "/server/keys/auth0"
+        }
+      },
+      "production": {
+        "api": {
+          "address": {
+            "host": "local.wolkenkit.io",
+            "port": 443
+          },
+          "allowAccessFrom": "*"
+        },
+        "node": {
+          "environment": "development"
+        },
+        "docker": {
+          "machine": "wolkenkit"
+        }
+      }
+    }
+  },
+  "license": "AGPL-3.0"
+}

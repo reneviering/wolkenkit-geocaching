@@ -1,0 +1,11 @@
+.cache-list-item h3 {
+	margin-top: 0;
+}
+
+.cache-list-item__infoItem {
+	margin-right: 10px;
+}
+
+.cache-list-item--not-published {
+	background-color: #ecf0f1;
+}
