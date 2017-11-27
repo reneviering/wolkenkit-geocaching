@@ -19,7 +19,7 @@ See the wolkenkit installation guide for [macOS](https://docs.wolkenkit.io/1.1.0
 
 ### Environment Variables
 
-As wolkenkit-geocaching uses some public APIs you have to add some API keys and other configurations inside the file `.env` placed in the root directory.
+As wolkenkit-geocaching uses some public APIs you have to add some API keys and other configurations inside the file `.env` placed in the `client` directory.
 
 ```
 REACT_APP_GOOGLE_GEOCODING_API_KEY=<google geocoding api-key>
@@ -32,13 +32,13 @@ REACT_APP_WOLKENKIT_CLIENT_ID=<client id>
 
 [Get a Google Maps API key](https://developers.google.com/maps/documentation/javascript/tutorial?hl=en)
 
-Afterwards add the API key to the `.env` file in the root directory.
+Afterwards add the API key to the `.env` file in the `client` directory.
 
 ### Google Maps Geocoding API
 
 [Get a Google Maps Geocoding API key](https://developers.google.com/maps/documentation/geocoding/start?hl=en)
 
-Afterwards add the API key to the `.env` file in the root directory.
+Afterwards add the API key to the `.env` file in the `client` directory.
 
 ### Auh0 identity provider
 
@@ -49,7 +49,7 @@ To configure it, you have to follow these steps:
 - Login to [Auth0](https://auth0.com). If you don't have an account, register first.
 - Navigate to `Clients => Create Client` choose a name and select `Single Page Applications` as a client type.
 - Click on the `Settings` tab and add `http://localhost:3000` to `Allowed Callback URLs`
-- Add the `Client ID` to the `.env` file in the root directory.
+- Add the `Client ID` to the `.env` file in the `client` directory.
 - Scroll to the bottom of the page and click on `Show Advanced Settings`.
 - Click on the `Certificates` tab, copy the `Signing Certificate` and add it to `/server/keys/auth0.certificate.pem`.
 - Add your identity provider URL to the `package.json` at the key `wolkenkit.environments.default.identiyProvider.name`. It has the structure `https://<identityProviderName>.eu.auth0.com/`
