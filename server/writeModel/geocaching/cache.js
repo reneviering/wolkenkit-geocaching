@@ -1,5 +1,7 @@
 'use strict';
 
+const { only } = require('wolkenkit-command-tools');
+
 const initialState = {
   name: '',
   description: '',
@@ -31,73 +33,91 @@ const initialState = {
 };
 
 const commands = {
-  hide (cache, command, mark) {
-    cache.events.publish('hidden', {
-      name: command.data.name,
-      description: command.data.description,
-      coordinate: {
-        lat: command.data.coordinate.lat,
-        lon: command.data.coordinate.lon
-      }
-    });
-    mark.asDone();
-  },
-
-  publish (cache, command, mark) {
-    cache.events.publish('published', {
-      name: cache.state.name,
-      description: cache.state.description,
-      coordinate: {
-        lat: cache.state.coordinate.lat,
-        lon: cache.state.coordinate.lon
-      },
-      countFavorites: cache.state.countFavorites,
-      countFindings: cache.state.countFindings,
-      comments: cache.state.comments,
-      removed: cache.state.removed,
-      published: true
-    });
-    mark.asDone();
-  },
-
-  favor (cache, command, mark) {
-    cache.events.publish('favored', {
-      countFavorites: cache.state.countFavorites + 1
-    });
-    mark.asDone();
-  },
-
-  find (cache, command, mark) {
-    cache.events.publish('found', {
-      comments: [ ...cache.state.comments, {
-        text: command.data.text,
-        finder: command.user.id,
-        timestamp: command.metadata.timestamp
-      }],
-      countFindings: cache.state.countFindings + 1
-    });
-    mark.asDone();
-  },
-
-  comment (cache, command, mark) {
-    cache.events.publish('commented', {
-      comments: [ ...cache.state.comments, {
-        text: command.data.text,
-        author: command.user,
-        timestamp: command.metadata.timestamp
-      }]
-    });
-    mark.asDone();
-  },
-
-  remove (cache, command, mark) {
-    if (cache.state.published) {
-      return mark.asRejected('An already published cache can not be removed');
+  hide: [
+    only.ifNotExists(),
+    (cache, command, mark) => {
+      cache.events.publish('hidden', {
+        name: command.data.name,
+        description: command.data.description,
+        coordinate: {
+          lat: command.data.coordinate.lat,
+          lon: command.data.coordinate.lon
+        }
+      });
+      mark.asDone();
     }
+  ],
 
-    cache.events.publish('removed');
-    mark.asDone();
-  }
+  publish: [
+    only.ifExists(),
+    (cache, command, mark) => {
+      cache.events.publish('published', {
+        name: cache.state.name,
+        description: cache.state.description,
+        coordinate: {
+          lat: cache.state.coordinate.lat,
+          lon: cache.state.coordinate.lon
+        },
+        countFavorites: cache.state.countFavorites,
+        countFindings: cache.state.countFindings,
+        comments: cache.state.comments,
+        removed: cache.state.removed,
+        published: true
+      });
+      mark.asDone();
+    }
+  ],
+
+  favor: [
+    only.ifExists(),
+    (cache, command, mark) => {
+      cache.events.publish('favored', {
+        countFavorites: cache.state.countFavorites + 1
+      });
+      mark.asDone();
+    }
+  ],
+
+  find: [
+    only.ifExists(),
+    (cache, command, mark) => {
+      cache.events.publish('found', {
+        comments: [ ...cache.state.comments, {
+          text: command.data.text,
+          finder: command.user.id,
+          timestamp: command.metadata.timestamp
+        }],
+        countFindings: cache.state.countFindings + 1
+      });
+      mark.asDone();
+    }
+  ],
+
+  comment: [
+    only.ifExists(),
+    (cache, command, mark) => {
+      cache.events.publish('commented', {
+        comments: [ ...cache.state.comments, {
+          text: command.data.text,
+          author: command.user,
+          timestamp: command.metadata.timestamp
+        }]
+      });
+      mark.asDone();
+    }
+  ],
+
+  remove: [
+    only.ifExists(),
+    (cache, command, mark) => {
+      if (cache.state.published) {
+        return mark.asRejected('An already published cache can not be removed');
+      }
+
+      cache.events.publish('removed');
+      mark.asDone();
+    }
+  ]
 };
 
 const events = {
