@@ -12,16 +12,20 @@ const initialState = {
 
   isAuthorized: {
     commands: {
-      publish: { forAuthenticated: true, forPublic: false },
+      comment: { forAuthenticated: true, forPublic: false },
       favor: { forAuthenticated: true, forPublic: false },
       find: { forAuthenticated: true, forPublic: false },
-      comment: { forAuthenticated: true, forPublic: false }
+      hide: { forAuthenticated: false, forPublic: false },
+      publish: { forAuthenticated: true, forPublic: false },
+      remove: { forAuthenticated: false, forPublic: false }
     },
     events: {
-      published: { forAuthenticated: true, forPublic: false },
+      commented: { forAuthenticated: true, forPublic: false },
       favored: { forAuthenticated: true, forPublic: false },
       found: { forAuthenticated: true, forPublic: false },
-      commented: { forAuthenticated: true, forPublic: false }
+      hidden: { forAuthenticated: false, forPublic: false },
+      published: { forAuthenticated: true, forPublic: false },
+      removed: { forAuthenticated: false, forPublic: false }
     }
   }
 };
