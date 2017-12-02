@@ -145,10 +145,6 @@ const commands = {
     only.ifExists(),
     onlyIfCacheHasNotBeenPublished(),
     (cache, command, mark) => {
-      if (cache.state.published) {
-        return mark.asRejected('An already published cache can not be removed');
-      }
-
       cache.events.publish('removed');
       mark.asDone();
     }
