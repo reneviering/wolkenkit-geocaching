@@ -35,6 +35,21 @@ const initialState = {
 const commands = {
   hide: [
     only.ifNotExists(),
+    only.ifValidatedBy({
+      type: 'object',
+      properties: {
+        name: { type: 'string', minLength: 1 },
+        description: { type: 'string', minLength: 1 },
+        coordinate: {
+          type: 'object',
+          properties: {
+            lat: { type: 'number' },
+            lon: { type: 'number' }
+          }
+        }
+      },
+      required: [ 'name', 'description', 'coordinate' ]
+    }),
     (cache, command, mark) => {
       cache.events.publish('hidden', {
         name: command.data.name,
@@ -80,6 +95,13 @@ const commands = {
 
   find: [
     only.ifExists(),
+    only.ifValidatedBy({
+      type: 'object',
+      properties: {
+        text: { type: 'string', minLength: 1 }
+      },
+      required: [ 'text' ]
+    }),
     (cache, command, mark) => {
       cache.events.publish('found', {
         comments: [ ...cache.state.comments, {
@@ -95,6 +117,13 @@ const commands = {
 
   comment: [
     only.ifExists(),
+    only.ifValidatedBy({
+      type: 'object',
+      properties: {
+        text: { type: 'string', minLength: 1 }
+      },
+      required: [ 'text' ]
+    }),
     (cache, command, mark) => {
       cache.events.publish('commented', {
         comments: [ ...cache.state.comments, {
