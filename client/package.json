@@ -32,12 +32,10 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "eslint": "^3.19.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "eslint-config-es": "^0.8.12",
-    "eslint-config-prettier": "^2.3.0",
-    "eslint-config-xo": "^0.18.2",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-security": "^1.4.0"
+    "eslint-config-react-app": "^2.0.1"
   }
 }

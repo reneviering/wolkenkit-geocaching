@@ -26,7 +26,7 @@
           "environment": "development"
         },
         "identityProvider": {
-          "name": "https://<auth0>.eu.auth0.com/",
+          "name": "https://rvrng.eu.auth0.com/",
           "certificate": "/server/keys/auth0"
         }
       },
@@ -49,7 +49,7 @@
   },
   "license": "AGPL-3.0",
   "devDependencies": {
-    "eslint": "^4.12.1",
+    "eslint": "^3.19.0",
     "eslint-config-es": "^0.8.12",
     "eslint-plugin-wolkenkit": "^1.0.0"
   }
