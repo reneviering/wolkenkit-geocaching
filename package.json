@@ -47,5 +47,10 @@
       }
     }
   },
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "eslint": "^4.12.1",
+    "eslint-config-es": "^0.8.12",
+    "eslint-plugin-wolkenkit": "^1.0.0"
+  }
 }
