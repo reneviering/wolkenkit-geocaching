@@ -2,7 +2,7 @@
 
 const onlyIfCacheHasBeenPublished = function () {
   return function (cache, command, mark) {
-    if (cache.state.published) {
+    if (!cache.state.published) {
       return mark.asRejected('Cache has not been published yet.');
     }
 
