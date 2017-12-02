@@ -1,6 +1,8 @@
 'use strict';
 
 const { only } = require('wolkenkit-command-tools');
+const onlyIfCacheHasBeenPublished = require('../../shared/middleware/onlyIfCacheHasBeenPublished');
+const onlyIfCacheHasNotBeenPublished = require('../../shared/middleware/onlyIfCacheHasNotBeenPublished');
 
 const initialState = {
   name: '',
@@ -85,6 +87,7 @@ const commands = {
 
   favor: [
     only.ifExists(),
+    onlyIfCacheHasBeenPublished(),
     (cache, command, mark) => {
       cache.events.publish('favored', {
         countFavorites: cache.state.countFavorites + 1
@@ -102,6 +105,7 @@ const commands = {
       },
       required: [ 'text' ]
     }),
+    onlyIfCacheHasBeenPublished(),
     (cache, command, mark) => {
       cache.events.publish('found', {
         comments: [ ...cache.state.comments, {
@@ -124,6 +128,7 @@ const commands = {
       },
       required: [ 'text' ]
     }),
+    onlyIfCacheHasBeenPublished(),
     (cache, command, mark) => {
       cache.events.publish('commented', {
         comments: [ ...cache.state.comments, {
@@ -138,6 +143,7 @@ const commands = {
 
   remove: [
     only.ifExists(),
+    onlyIfCacheHasNotBeenPublished(),
     (cache, command, mark) => {
       if (cache.state.published) {
         return mark.asRejected('An already published cache can not be removed');
