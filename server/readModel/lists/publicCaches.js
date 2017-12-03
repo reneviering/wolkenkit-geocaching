@@ -20,16 +20,6 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.favored' (publicCaches, event, mark) {
-    publicCaches.update({
-      where: { id: event.aggregate.id },
-      set: {
-        countFavorites: event.data.countFavorites
-      }
-    });
-    mark.asDone();
-  },
-
   'geocaching.cache.found' (publicCaches, event, mark) {
     publicCaches.update({
       where: { id: event.aggregate.id },
@@ -49,7 +39,18 @@ const when = {
       }
     });
     mark.asDone();
+  },
+
+  'geocaching.cache.favored' (publicCaches, event, mark) {
+    publicCaches.update({
+      where: { id: event.aggregate.id },
+      set: {
+        countFavorites: event.data.countFavorites
+      }
+    });
+    mark.asDone();
   }
+
 };
 
 module.exports = { fields, when };

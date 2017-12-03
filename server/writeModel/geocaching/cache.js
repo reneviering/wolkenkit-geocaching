@@ -35,62 +35,6 @@ const initialState = {
 };
 
 const commands = {
-  comment: [
-    only.ifExists(),
-    only.ifValidatedBy({
-      type: 'object',
-      properties: {
-        text: { type: 'string', minLength: 1 }
-      },
-      required: [ 'text' ]
-    }),
-    onlyIfCacheHasBeenPublished(),
-    (cache, command, mark) => {
-      cache.events.publish('commented', {
-        comments: [ ...cache.state.comments, {
-          text: command.data.text,
-          author: command.user,
-          timestamp: command.metadata.timestamp
-        }]
-      });
-      mark.asDone();
-    }
-  ],
-
-  favor: [
-    only.ifExists(),
-    onlyIfCacheHasBeenPublished(),
-    (cache, command, mark) => {
-      cache.events.publish('favored', {
-        countFavorites: cache.state.countFavorites + 1
-      });
-      mark.asDone();
-    }
-  ],
-
-  find: [
-    only.ifExists(),
-    only.ifValidatedBy({
-      type: 'object',
-      properties: {
-        text: { type: 'string', minLength: 1 }
-      },
-      required: [ 'text' ]
-    }),
-    onlyIfCacheHasBeenPublished(),
-    (cache, command, mark) => {
-      cache.events.publish('found', {
-        comments: [ ...cache.state.comments, {
-          text: command.data.text,
-          finder: command.user.id,
-          timestamp: command.metadata.timestamp
-        }],
-        countFindings: cache.state.countFindings + 1
-      });
-      mark.asDone();
-    }
-  ],
-
   hide: [
     only.ifNotExists(),
     only.ifValidatedBy({
@@ -141,6 +85,62 @@ const commands = {
     }
   ],
 
+  find: [
+    only.ifExists(),
+    only.ifValidatedBy({
+      type: 'object',
+      properties: {
+        text: { type: 'string', minLength: 1 }
+      },
+      required: [ 'text' ]
+    }),
+    onlyIfCacheHasBeenPublished(),
+    (cache, command, mark) => {
+      cache.events.publish('found', {
+        comments: [ ...cache.state.comments, {
+          text: command.data.text,
+          finder: command.user.id,
+          timestamp: command.metadata.timestamp
+        }],
+        countFindings: cache.state.countFindings + 1
+      });
+      mark.asDone();
+    }
+  ],
+
+  comment: [
+    only.ifExists(),
+    only.ifValidatedBy({
+      type: 'object',
+      properties: {
+        text: { type: 'string', minLength: 1 }
+      },
+      required: [ 'text' ]
+    }),
+    onlyIfCacheHasBeenPublished(),
+    (cache, command, mark) => {
+      cache.events.publish('commented', {
+        comments: [ ...cache.state.comments, {
+          text: command.data.text,
+          author: command.user,
+          timestamp: command.metadata.timestamp
+        }]
+      });
+      mark.asDone();
+    }
+  ],
+
+  favor: [
+    only.ifExists(),
+    onlyIfCacheHasBeenPublished(),
+    (cache, command, mark) => {
+      cache.events.publish('favored', {
+        countFavorites: cache.state.countFavorites + 1
+      });
+      mark.asDone();
+    }
+  ],
+
   remove: [
     only.ifExists(),
     onlyIfCacheHasNotBeenPublished(),
@@ -152,26 +152,6 @@ const commands = {
 };
 
 const events = {
-  commented (cache, event) {
-    cache.setState({
-      comments: event.data.comments
-    });
-  },
-
-  favored (cache, event) {
-    cache.setState({
-      countFavorites: event.data.countFavorites
-    });
-  },
-
-  found (cache, event) {
-    cache.setState({
-      countFindings: event.data.countFindings,
-      comments: event.data.comments,
-      finder: event.data.finder
-    });
-  },
-
   hidden (cache, event) {
     cache.setState({
       name: event.data.name,
@@ -183,6 +163,26 @@ const events = {
   published (cache, event) {
     cache.setState({
       published: event.data.published
+    });
+  },
+
+  found (cache, event) {
+    cache.setState({
+      countFindings: event.data.countFindings,
+      comments: event.data.comments,
+      finder: event.data.finder
+    });
+  },
+
+  commented (cache, event) {
+    cache.setState({
+      comments: event.data.comments
+    });
+  },
+
+  favored (cache, event) {
+    cache.setState({
+      countFavorites: event.data.countFavorites
     });
   },
 

@@ -28,18 +28,6 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.favored' (ownCaches, event, mark) {
-    ownCaches.update({
-      where: {
-        id: event.aggregate.id
-      },
-      set: {
-        countFavorites: event.data.countFavorites
-      }
-    });
-    mark.asDone();
-  },
-
   'geocaching.cache.found' (ownCaches, event, mark) {
     ownCaches.update({
       where: {
@@ -60,6 +48,18 @@ const when = {
       },
       set: {
         comments: event.data.comments
+      }
+    });
+    mark.asDone();
+  },
+
+  'geocaching.cache.favored' (ownCaches, event, mark) {
+    ownCaches.update({
+      where: {
+        id: event.aggregate.id
+      },
+      set: {
+        countFavorites: event.data.countFavorites
       }
     });
     mark.asDone();
