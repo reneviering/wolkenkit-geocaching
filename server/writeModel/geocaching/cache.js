@@ -122,7 +122,7 @@ const commands = {
       cache.events.publish('commented', {
         comments: [ ...cache.state.comments, {
           text: command.data.text,
-          author: command.user,
+          author: command.user.id,
           timestamp: command.metadata.timestamp
         }]
       });
