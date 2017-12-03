@@ -34,11 +34,11 @@
   },
   "license": "AGPL-3.0",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-es": "^0.8.12",
-    "eslint-plugin-wolkenkit": "^1.0.0"
+    "eslint": "3.19.0",
+    "eslint-config-es": "0.8.12",
+    "eslint-plugin-wolkenkit": "1.0.0"
   },
   "dependencies": {
-    "wolkenkit-command-tools": "^1.0.0"
+    "wolkenkit-command-tools": "1.0.0"
   }
 }
