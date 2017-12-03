@@ -26,26 +26,19 @@
           "environment": "development"
         },
         "identityProvider": {
-          "name": "https://<auth0>.eu.auth0.com/",
+          "name": "https://rvrng.eu.auth0.com/",
           "certificate": "/server/keys/auth0"
-        }
-      },
-      "production": {
-        "api": {
-          "address": {
-            "host": "local.wolkenkit.io",
-            "port": 443
-          },
-          "allowAccessFrom": "*"
-        },
-        "node": {
-          "environment": "development"
-        },
-        "docker": {
-          "machine": "wolkenkit"
         }
       }
     }
   },
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "eslint": "3.19.0",
+    "eslint-config-es": "0.8.12",
+    "eslint-plugin-wolkenkit": "1.0.0"
+  },
+  "dependencies": {
+    "wolkenkit-command-tools": "1.0.0"
+  }
 }
