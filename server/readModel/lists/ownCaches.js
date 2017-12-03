@@ -11,12 +11,12 @@ const fields = {
 };
 
 const when = {
-  'geocaching.cache.hidden': (ownCaches, event, mark) => {
+  'geocaching.cache.hidden' (ownCaches, event, mark) {
     ownCaches.add({ name: event.data.name, description: event.data.description, coordinate: event.data.coordinate });
     mark.asDone();
   },
 
-  'geocaching.cache.published': (ownCaches, event, mark) => {
+  'geocaching.cache.published' (ownCaches, event, mark) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -28,7 +28,7 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.favored': (ownCaches, event, mark) => {
+  'geocaching.cache.favored' (ownCaches, event, mark) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -40,7 +40,7 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.found': (ownCaches, event, mark) => {
+  'geocaching.cache.found' (ownCaches, event, mark) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -53,7 +53,7 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.commented': (ownCaches, event, mark) => {
+  'geocaching.cache.commented' (ownCaches, event, mark) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -65,7 +65,7 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.removed': (ownCaches, event, mark) => {
+  'geocaching.cache.removed' (ownCaches, event, mark) {
     ownCaches.remove({
       where: {
         id: event.aggregate.id

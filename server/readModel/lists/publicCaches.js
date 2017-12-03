@@ -10,7 +10,7 @@ const fields = {
 };
 
 const when = {
-  'geocaching.cache.published': (publicCaches, event, mark) => {
+  'geocaching.cache.published' (publicCaches, event, mark) {
     publicCaches.add({
       name: event.data.name,
       description: event.data.description,
@@ -20,7 +20,7 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.favored': (publicCaches, event, mark) => {
+  'geocaching.cache.favored' (publicCaches, event, mark) {
     publicCaches.update({
       where: { id: event.aggregate.id },
       set: {
@@ -30,7 +30,7 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.found': (publicCaches, event, mark) => {
+  'geocaching.cache.found' (publicCaches, event, mark) {
     publicCaches.update({
       where: { id: event.aggregate.id },
       set: {
@@ -41,7 +41,7 @@ const when = {
     mark.asDone();
   },
 
-  'geocaching.cache.commented': (publicCaches, event, mark) => {
+  'geocaching.cache.commented' (publicCaches, event, mark) {
     publicCaches.update({
       where: { id: event.aggregate.id },
       set: {
