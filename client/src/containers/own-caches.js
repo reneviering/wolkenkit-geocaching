@@ -39,12 +39,16 @@ class OwnCaches extends React.Component {
     this.props.removeCache(cacheId);
   }
 
-  handleNavigateToDetails = cacheId => event => {
+  handleNavigateToDetails = cache => event => {
     if (event.target.classList.contains('btn')) {
       return;
     }
 
-    window.location.hash = `public-caches/${cacheId}`;
+    if (!cache.published) {
+      return;
+    }
+
+    window.location.hash = `public-caches/${cache.id}`;
   }
 
   handleOpenHideCacheModal = () => {
@@ -76,7 +80,7 @@ class OwnCaches extends React.Component {
       });
 
       return (
-        <li onClick={ this.handleNavigateToDetails(cache.id) } className={ listItemClass } key={ cache.id || index }>
+        <li onClick={ this.handleNavigateToDetails(cache) } className={ listItemClass } key={ cache.id || index }>
           <h4>
             {cache.name}
           </h4>
