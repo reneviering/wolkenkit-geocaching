@@ -1,8 +1,8 @@
-import { Button } from 'react-bootstrap';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import initHideCacheModal from '../components/HideCacheModal';
 import React from 'react';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import * as actions from '../actions';
 import './own-caches.css';
 
@@ -39,7 +39,11 @@ class OwnCaches extends React.Component {
     this.props.removeCache(cacheId);
   }
 
-  handleNavigateToDetails = cacheId => () => {
+  handleNavigateToDetails = cacheId => event => {
+    if (event.target.classList.contains('btn')) {
+      return;
+    }
+
     window.location.hash = `public-caches/${cacheId}`;
   }
 
@@ -52,6 +56,19 @@ class OwnCaches extends React.Component {
     this.setState({ showHideCacheModal: false });
   }
 
+  renderCacheActions (cache) {
+    if (cache.published) {
+      return null;
+    }
+
+    return (
+      <ButtonGroup className='pull-right'>
+        <Button bsSize='small' bsStyle='default' onClick={ () => this.handlePublishCache(cache.id) }>Publish</Button>
+        <Button bsSize='small' onClick={ () => this.handleRemoveCache(cache.id) }>Delete</Button>
+      </ButtonGroup>
+    );
+  }
+
   renderCacheList () {
     return this.props.caches.map((cache, index) => {
       const listItemClass = classNames('list-group-item', 'cache-list-item', {
@@ -59,17 +76,22 @@ class OwnCaches extends React.Component {
       });
 
       return (
-        <li className={ listItemClass } key={ cache.id || index }>
-          <button className='btn btn-default pull-right' onClick={ this.handleNavigateToDetails(cache.id) }>show cache details</button>
-          <h3>{cache.name}</h3>
-          <p>{cache.description}</p>
-          <p>
-            <span className='cache-list-item__infoItem'>findings: <span className='badge'>{cache.countFindings || 0}</span></span>
-            <span className='cache-list-item__infoItem'>favorites: <span className='badge'>{cache.countFavorites || 0}</span></span>
-          </p>
-
-          {!cache.published && <Button bsStyle='primary' onClick={ () => this.handlePublishCache(cache.id) }>publish cache</Button>}
-          {!cache.published && <Button bsStyle='danger' onClick={ () => this.handleRemoveCache(cache.id) }>delete cache</Button>}
+        <li onClick={ this.handleNavigateToDetails(cache.id) } className={ listItemClass } key={ cache.id || index }>
+          <h4>
+            {cache.name}
+          </h4>
+          <div className='row'>
+            <div className='col-md-10'><p>{cache.description}</p></div>
+            <div className='col-md-2 cache-list-item__actions'>
+              {this.renderCacheActions(cache)}
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-md-12'>
+              <span className='cache-list-item__infoItem'><span className='label label-default'>{cache.countFindings || 0} found</span></span>
+              <span className='cache-list-item__infoItem'><span className='label label-danger'>{cache.countFavorites || 0} <span className='glyphicon glyphicon-heart' /></span></span>
+            </div>
+          </div>
         </li>
       );
     });
@@ -78,23 +100,22 @@ class OwnCaches extends React.Component {
   render () {
     return (
       <div>
-        <h1>
-          <span>Own caches</span>
+        <h3>
+          <span>My Caches</span>
           <button onClick={ this.handleOpenHideCacheModal } className='btn btn-primary pull-right'>Hide new cache</button>
-        </h1>
+        </h3>
 
         <hr />
 
-        <ul className='list-group cache-list'>
+        <div className='list-group cache-list'>
           {this.renderCacheList()}
-        </ul>
+        </div>
 
         <HideCacheModal
           show={ this.state.showHideCacheModal }
           onHide={ this.handleCloseHideCacheModal }
           onSubmit={ this.handleHideCache }
         />
-
       </div>
     );
   }

@@ -41,7 +41,7 @@ class Header extends React.Component {
     return (
       <Nav key='mainNav'>
         <NavItem eventKey='home' href='#home' active={ this.checkIfActiveRouteIs('home') }>Home</NavItem>
-        <NavItem eventKey='own-caches' href='#own-caches' active={ this.checkIfActiveRouteIs('own-caches') }>Own Caches</NavItem>
+        <NavItem eventKey='own-caches' href='#own-caches' active={ this.checkIfActiveRouteIs('own-caches') }>My Caches</NavItem>
         <NavItem eventKey='public-caches' href='#public-caches' active={ this.checkIfActiveRouteIs('public-caches') }>Public Caches</NavItem>
       </Nav>
     );
