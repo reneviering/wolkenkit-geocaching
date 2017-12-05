@@ -14,15 +14,7 @@
 	margin-right: 10px;
 }
 
-.cache-list-item__actions {
-	opacity: 0;
-	transition: opacity 200ms;
-}
-
-.cache-list-item:hover .cache-list-item__actions {
-	opacity: 1;
-}
-
 .cache-list-item--not-published {
 	background-color: #ecf0f1;
+	cursor: default;
 }
