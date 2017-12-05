@@ -60,7 +60,7 @@ class OwnCaches extends React.Component {
 
       return (
         <li className={ listItemClass } key={ cache.id || index }>
-          <button className='btn btn-default pull-right' onClick={ this.handleNavigateToDetails(cache.id) }>show cache details</button>
+          {cache.published && <button className='btn btn-default pull-right' onClick={ this.handleNavigateToDetails(cache.id) }>show cache details</button>}
           <h3>{cache.name}</h3>
           <p>{cache.description}</p>
           <p>
