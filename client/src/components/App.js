@@ -7,7 +7,7 @@ const App = function ({ children }) {
       <Header />
       <div className='container'>
         {children}
-        <footer>©2017 René Viering, made with Wolkenkit, React, Redux and <span role='img' aria-labelledby='love'>❤️</span></footer>
+        <footer>©2017 René Viering, made with wolkenkit, React, Redux and <span role='img' aria-labelledby='love'>❤️</span></footer>
       </div>
     </div>
   );

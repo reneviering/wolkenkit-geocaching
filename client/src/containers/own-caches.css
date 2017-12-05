@@ -1,3 +1,11 @@
+.cache-list-item {
+	cursor: pointer;
+}
+
+.cache-list-item:hover {
+	background-color: #efefef;
+}
+
 .cache-list-item h3 {
 	margin-top: 0;
 }
@@ -8,4 +16,5 @@
 
 .cache-list-item--not-published {
 	background-color: #ecf0f1;
+	cursor: default;
 }

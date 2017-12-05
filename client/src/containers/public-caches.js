@@ -55,7 +55,7 @@ class PublicCaches extends React.Component {
 
     return (
       <div>
-        <h1>Public Cache-List <span className='badge'>{this.props.caches.length}</span></h1>
+        <h3>Public Cache-List <span className='badge'>{this.props.caches.length}</span></h3>
 
         <GoogleMapsContainer
           googleMapURL={ googleMapsUrl }
