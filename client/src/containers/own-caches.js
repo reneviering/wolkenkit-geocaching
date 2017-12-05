@@ -79,7 +79,7 @@ class OwnCaches extends React.Component {
     return (
       <div>
         <h1>
-          <span>Own caches</span>
+          <span>My caches</span>
           <button onClick={ this.handleOpenHideCacheModal } className='btn btn-primary pull-right'>Hide new cache</button>
         </h1>
 
