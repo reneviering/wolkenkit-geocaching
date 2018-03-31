@@ -1,12 +1,10 @@
 'use strict';
 
 const onlyIfCacheHasBeenPublished = function () {
-  return function (cache, command, mark) {
+  return function (cache, command) {
     if (!cache.state.published) {
-      return mark.asRejected('Cache has not been published yet.');
+      return command.reject('Cache has not been published yet.');
     }
-
-    mark.asReadyForNext();
   };
 };
 

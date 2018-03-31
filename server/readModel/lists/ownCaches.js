@@ -11,12 +11,15 @@ const fields = {
 };
 
 const when = {
-  'geocaching.cache.hidden' (ownCaches, event, mark) {
-    ownCaches.add({ name: event.data.name, description: event.data.description, coordinate: event.data.coordinate });
-    mark.asDone();
+  'geocaching.cache.hidden' (ownCaches, event) {
+    ownCaches.add({
+      name: event.data.name,
+      description: event.data.description,
+      coordinate: event.data.coordinate
+    });
   },
 
-  'geocaching.cache.published' (ownCaches, event, mark) {
+  'geocaching.cache.published' (ownCaches, event) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -25,10 +28,9 @@ const when = {
         published: event.data.published
       }
     });
-    mark.asDone();
   },
 
-  'geocaching.cache.found' (ownCaches, event, mark) {
+  'geocaching.cache.found' (ownCaches, event) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -38,10 +40,9 @@ const when = {
         comments: event.data.comments
       }
     });
-    mark.asDone();
   },
 
-  'geocaching.cache.commented' (ownCaches, event, mark) {
+  'geocaching.cache.commented' (ownCaches, event) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -50,10 +51,9 @@ const when = {
         comments: event.data.comments
       }
     });
-    mark.asDone();
   },
 
-  'geocaching.cache.favored' (ownCaches, event, mark) {
+  'geocaching.cache.favored' (ownCaches, event) {
     ownCaches.update({
       where: {
         id: event.aggregate.id
@@ -62,20 +62,15 @@ const when = {
         countFavorites: event.data.countFavorites
       }
     });
-    mark.asDone();
   },
 
-  'geocaching.cache.removed' (ownCaches, event, mark) {
+  'geocaching.cache.removed' (ownCaches, event) {
     ownCaches.remove({
       where: {
         id: event.aggregate.id
       }
     });
-    mark.asDone();
   }
 };
 
-module.exports = {
-  fields,
-  when
-};
+module.exports = { fields, when };
