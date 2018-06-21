@@ -9,7 +9,7 @@ const fields = {
   comments: { initialState: []}
 };
 
-const when = {
+const projections = {
   'geocaching.cache.published' (publicCaches, event) {
     publicCaches.add({
       name: event.data.name,
@@ -47,4 +47,4 @@ const when = {
   }
 };
 
-module.exports = { fields, when };
+module.exports = { fields, projections };

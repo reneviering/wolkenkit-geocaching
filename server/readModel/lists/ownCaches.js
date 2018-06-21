@@ -10,7 +10,7 @@ const fields = {
   comments: { initialState: []}
 };
 
-const when = {
+const projections = {
   'geocaching.cache.hidden' (ownCaches, event) {
     ownCaches.add({
       name: event.data.name,
@@ -73,4 +73,4 @@ const when = {
   }
 };
 
-module.exports = { fields, when };
+module.exports = { fields, projections };
