@@ -1,8 +1,9 @@
 'use strict';
 
 const { only } = require('wolkenkit-command-tools');
-const onlyIfCacheHasBeenPublished = require('../../shared/middleware/onlyIfCacheHasBeenPublished');
-const onlyIfCacheHasNotBeenPublished = require('../../shared/middleware/onlyIfCacheHasNotBeenPublished');
+
+const onlyIfCacheHasBeenPublished = require('../../shared/middleware/onlyIfCacheHasBeenPublished'),
+      onlyIfCacheHasNotBeenPublished = require('../../shared/middleware/onlyIfCacheHasNotBeenPublished');
 
 const initialState = {
   name: '',
@@ -37,7 +38,7 @@ const initialState = {
 const commands = {
   hide: [
     only.ifNotExists(),
-    only.ifValidatedBy({
+    only.ifCommandValidatedBy({
       type: 'object',
       properties: {
         name: { type: 'string', minLength: 1 },
@@ -52,7 +53,7 @@ const commands = {
       },
       required: [ 'name', 'description', 'coordinate' ]
     }),
-    (cache, command, mark) => {
+    (cache, command) => {
       cache.events.publish('hidden', {
         name: command.data.name,
         description: command.data.description,
@@ -61,13 +62,12 @@ const commands = {
           lon: command.data.coordinate.lon
         }
       });
-      mark.asDone();
     }
   ],
 
   publish: [
     only.ifExists(),
-    (cache, command, mark) => {
+    cache => {
       cache.events.publish('published', {
         name: cache.state.name,
         description: cache.state.description,
@@ -81,13 +81,12 @@ const commands = {
         removed: cache.state.removed,
         published: true
       });
-      mark.asDone();
     }
   ],
 
   find: [
     only.ifExists(),
-    only.ifValidatedBy({
+    only.ifCommandValidatedBy({
       type: 'object',
       properties: {
         text: { type: 'string', minLength: 1 }
@@ -95,7 +94,7 @@ const commands = {
       required: [ 'text' ]
     }),
     onlyIfCacheHasBeenPublished(),
-    (cache, command, mark) => {
+    (cache, command) => {
       cache.events.publish('found', {
         comments: [ ...cache.state.comments, {
           text: command.data.text,
@@ -104,13 +103,12 @@ const commands = {
         }],
         countFindings: cache.state.countFindings + 1
       });
-      mark.asDone();
     }
   ],
 
   comment: [
     only.ifExists(),
-    only.ifValidatedBy({
+    only.ifCommandValidatedBy({
       type: 'object',
       properties: {
         text: { type: 'string', minLength: 1 }
@@ -118,7 +116,7 @@ const commands = {
       required: [ 'text' ]
     }),
     onlyIfCacheHasBeenPublished(),
-    (cache, command, mark) => {
+    (cache, command) => {
       cache.events.publish('commented', {
         comments: [ ...cache.state.comments, {
           text: command.data.text,
@@ -126,27 +124,24 @@ const commands = {
           timestamp: command.metadata.timestamp
         }]
       });
-      mark.asDone();
     }
   ],
 
   favor: [
     only.ifExists(),
     onlyIfCacheHasBeenPublished(),
-    (cache, command, mark) => {
+    cache => {
       cache.events.publish('favored', {
         countFavorites: cache.state.countFavorites + 1
       });
-      mark.asDone();
     }
   ],
 
   remove: [
     only.ifExists(),
     onlyIfCacheHasNotBeenPublished(),
-    (cache, command, mark) => {
+    cache => {
       cache.events.publish('removed');
-      mark.asDone();
     }
   ]
 };
@@ -193,8 +188,4 @@ const events = {
   }
 };
 
-module.exports = {
-  initialState,
-  commands,
-  events
-};
+module.exports = { initialState, commands, events };

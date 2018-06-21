@@ -9,18 +9,16 @@ const fields = {
   comments: { initialState: []}
 };
 
-const when = {
-  'geocaching.cache.published' (publicCaches, event, mark) {
+const projections = {
+  'geocaching.cache.published' (publicCaches, event) {
     publicCaches.add({
       name: event.data.name,
       description: event.data.description,
       coordinate: event.data.coordinate
     });
-
-    mark.asDone();
   },
 
-  'geocaching.cache.found' (publicCaches, event, mark) {
+  'geocaching.cache.found' (publicCaches, event) {
     publicCaches.update({
       where: { id: event.aggregate.id },
       set: {
@@ -28,29 +26,25 @@ const when = {
         comments: event.data.comments
       }
     });
-    mark.asDone();
   },
 
-  'geocaching.cache.commented' (publicCaches, event, mark) {
+  'geocaching.cache.commented' (publicCaches, event) {
     publicCaches.update({
       where: { id: event.aggregate.id },
       set: {
         comments: event.data.comments
       }
     });
-    mark.asDone();
   },
 
-  'geocaching.cache.favored' (publicCaches, event, mark) {
+  'geocaching.cache.favored' (publicCaches, event) {
     publicCaches.update({
       where: { id: event.aggregate.id },
       set: {
         countFavorites: event.data.countFavorites
       }
     });
-    mark.asDone();
   }
-
 };
 
-module.exports = { fields, when };
+module.exports = { fields, projections };
